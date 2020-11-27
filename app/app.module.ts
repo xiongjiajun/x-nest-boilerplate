@@ -3,7 +3,6 @@ import { ConfigModule } from '@nestjs/config';
 import { config } from 'config/server-config';
 import { worksImport } from 'global/util/app.util';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { MongoDatabaseModule } from './mongo-db.module';
 import { MySQLDatabaseModule } from './mysql-db.module';
 
@@ -23,14 +22,15 @@ const Works = Array.from(worksMap.values());
  */
 
 const modules = Works.map((Work) => {
+  console.log(Work);
   //@ts-ignore
-  return Work.getInstance().getModule();
-});
+  const work = Work.getInstance();
+  return work?.getModule() || null;
+}).filter((work) => work !== null);
 
 
 @Module({
   imports: imports.concat(modules),
   controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

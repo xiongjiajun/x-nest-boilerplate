@@ -28,16 +28,22 @@ export class BaseWork {
         return this.instancesMap.get(this);
     }
 
+    getDependentModules() {
+        return [];
+    }
+
     getModule() {
         if(this.module === null) {
             //@ts-ignore
-            if(this.constructor.__proto__ !== BaseWork) {
-                //@ts-ignore
-                this.imports.push(this.constructor.__proto__.getInstance().getModule());
-                // this.imports.push();
+            const parent: any = this.constructor.__proto__
+            if(parent !== BaseWork) {
+                const target = parent.getInstance();
+                this.imports.push(target.getModule());
             }
-            //@ts-ignore
-            const controllersMap: Map<string, BaseController> = controllersImport(join(this.dirname, "controller"));
+            if(this.getDependentModules().length > 0) {
+                this.imports.push(...this.getDependentModules());
+            }
+            const controllersMap: Map<string, Object> = controllersImport(join(this.dirname, "controller"));
             this.controllers = Array.from(controllersMap.values());
             const servicesMap: Map<string, any> = servicesImport(join(this.dirname, "service"));
             this.services = Array.from(servicesMap.values());

@@ -1,6 +1,6 @@
 const { cross2hump } = require("./util")
 
-module.exports = genControllerTemplate = (name, from) => {
+module.exports = genControllerTemplate = (name) => {
     const campName = cross2hump(name);
     return (
 `import { Get, Post, Put, Delete, Query, Body } from "@nestjs/common";

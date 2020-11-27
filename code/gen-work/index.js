@@ -23,7 +23,7 @@ if(_2nd_ === '-f') {
     force = true;
 }else if(_2nd_ === 'extends') {
     method = _2nd_;
-}else {
+}else if(!_2nd_) {}else {
     throw new Error("参数错误");
 }
 
@@ -39,9 +39,9 @@ if(force) {
     from = process.argv[ai++];   //第3个参数  如果第2个参数是extends 则为已存在的业务名称
 }
 
-// console.log(name, force, method, from);
+console.log(name, force, method, from);
 
-if(name === from) {
+if(from && name === from) {
     console.log("新业务与引用业务相同");
     return ;
 }

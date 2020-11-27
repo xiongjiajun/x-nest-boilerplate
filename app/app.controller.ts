@@ -1,13 +1,9 @@
 import { Controller, Get, Render, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { AppService } from './app.service';
 import { BaseController } from '../base/base.controller';
 
 @Controller()
-export class AppController extends BaseController {
-  constructor(private readonly appService: AppService) {
-    super();
-  }
+export class AppController {
 
   @Get()
   index(@Res() res: Response) {

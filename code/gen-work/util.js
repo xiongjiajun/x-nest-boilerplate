@@ -2,6 +2,7 @@ const { statSync, readdirSync } = require('fs');
 const { join } = require('path');
 
 module.exports = {
+    
     cross2hump: (name) => {
         const splitNames = name.split('-');
         for (let i = 0; i < splitNames.length; i++) {
